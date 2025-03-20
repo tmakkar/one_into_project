@@ -1,5 +1,7 @@
 require 'net/http'
 require 'json'
+require 'faker'
+
 
 # Fetch the list of breeds
 url = 'https://dog.ceo/api/breeds/list/all'
@@ -21,4 +23,18 @@ breed_data.each do |breed, sub_breeds|
       Image.create!(url: image_url, breed: breed_record)
     end
   end
+end
+
+
+# Create fake users
+10.times do
+  User.create(
+    name: Faker::Name.name,
+    email: Faker::Internet.email
+  )
+end
+
+# Assign random dogs to users
+User.all.each do |user|
+  user.dog_breeds << DogBreed.order("RANDOM()").limit(2)  # Assigns 2 random dogs
 end
