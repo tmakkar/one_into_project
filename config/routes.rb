@@ -1,4 +1,17 @@
 Rails.application.routes.draw do
+  get "users/index"
+  get "users/show"
+  get "dog_breeds/index"
+  get "dog_breeds/show"
+  
+  root "pages#about"  # Default homepage
+  get "about", to: "pages#about"
+
+  #root "dog_breeds#index"
+  resources :dog_breeds, only: [:index, :show]
+  resources :users, only: [:index, :show]
+  
+  get "pages/about"
   get "breeds/index"
   get "breeds/show"
   resources :breeds, only: [ :index, :show ]
